@@ -1,5 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div>
+      <ThemeToggle />
+    </div>
     <div class="container-fluid">
       <NuxtLink class="navbar-brand" to="/">Eccles Ice Hockey</NuxtLink>
       <button
