@@ -1,13 +1,17 @@
 {
   "name": "nuxt-app",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "@vue/cli-service": "^5.0.8",
+    "quasar": "^2.16.0"
   },
   "devDependencies": {
     "@mdi/js": "^7.4.47",
@@ -15,6 +19,8 @@
     "nuxt": "^3.10.0",
     "sass": "^1.70.0",
     "vue": "^3.4.15",
+    "vue-cli-plugin-quasar": "~5.1.0",
     "vue-router": "^4.2.5"
-  }
+  },
+  "type": "commonjs"
 }

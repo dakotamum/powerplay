@@ -1,42 +1,49 @@
 <template>
-  <div class="match-info" style="display: flex; flex-direction: column; margin-bottom: 10%; padding-left: 5%; border-left: 5px solid #eb5031;">
+  <q-card class="match-info" style="margin-bottom: 10%; padding-left: 5%; border-left: 5px solid #eb5031;">
     <div class="team-wrapper" :style="homeScore > awayScore ? { fontWeight: 'bold' } : {}">
       <div class="team-logo">
-        <img class="logo" src="./homeys.png" alt="Logo" >
+        <img class="logo" :src="homeTeamLogo" alt="Home Team Logo" />
       </div>
       <div class="team-name-wrapper">
         <p class="team-name">{{ homeTeam }}</p>
         <p>Home</p>
       </div>
       <div class="score">
-        <p class="">{{ homeScore !== null ? homeScore : '' }}</p>
+        <p>{{ homeScore !== null ? homeScore : '' }}</p>
       </div>
     </div>
     <div class="team-wrapper" :style="awayScore > homeScore ? { fontWeight: 'bold' } : {}">
       <div class="team-logo">
-        <img class="logo" src="./awaygoodteam.png" alt="Logo" >
+        <img class="logo" :src="awayTeamLogo" alt="Away Team Logo" />
       </div>
       <div class="team-name-wrapper">
         <p class="team-name">{{ awayTeam }}</p>
-        <p>Home</p>
+        <p>Away</p>
       </div>
       <div class="score">
-        <p class="">{{ awayScore !== null ? awayScore : '' }}</p>
+        <p>{{ awayScore !== null ? awayScore : '' }}</p>
       </div>
     </div>
     <p class="date-time">{{ date }}</p>
     <p class="time-time">{{ time }}</p>
     <div class="rsvp">
-      <button v-if="!hasRsvped" class="btn btn-primary">RSVP</button>
+      <q-btn v-if="!hasRsvped" label="RSVP" color="primary" @click="rsvp" />
       <div v-else class="checkmark-wrapper">
         <span class="checkmark">&#10003;</span>
       </div>
     </div>
-  </div>
+  </q-card>
 </template>
 
 <script>
+import { QBtn, QCard } from 'quasar'
+
 export default {
+  name: 'GameInfo',
+  components: {
+    QBtn,
+    QCard
+  },
   props: {
     homeTeam: {
       type: String,
@@ -74,8 +81,13 @@ export default {
       type: String,
       default: "assets/awaygoodteam.png"
     }
+  },
+  methods: {
+    rsvp() {
+      this.$emit('rsvp');
+    }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -86,6 +98,7 @@ export default {
 }
 .match-info {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: left;
 }

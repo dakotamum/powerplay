@@ -2,6 +2,7 @@ import svgLoader from 'vite-svg-loader'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  plugins: ['~/plugins/quasar.js'],
   devtools: { enabled: false },
   css: ['~/node_modules/bootstrap/scss/bootstrap.scss'],
   experimental: {
