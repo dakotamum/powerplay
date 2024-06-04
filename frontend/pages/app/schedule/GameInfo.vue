@@ -35,47 +35,32 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    homeTeam: {
-      type: String,
-      default: "The Homeys"
-    },
-    awayTeam: {
-      type: String,
-      default: "A Way Good Team"
-    },
-    date: {
-      type: String,
-      default: "Wed, Jan 25, 2024"
-    },
-    time: {
-      type: String,
-      default: "9:00 - 10:15 PM"
-    },
-    hasRsvped: {
-      type: Boolean,
-      default: false
-    },
-    homeScore: {
-      type: Number,
-      default: 0
-    },
-    awayScore: {
-      type: Number,
-      default: 0
-    },
-    homeTeamLogo: {
-      type: String,
-      default: "assets/homeys.png"
-    },
-    awayTeamLogo: {
-      type: String,
-      default: "assets/awaygoodteam.png"
-    }
-  }
-};
+<script setup lang="ts">
+import { defineProps } from 'vue';
+
+const props = defineProps<{
+  homeTeam: string;
+  awayTeam: string;
+  date: string;
+  time: string;
+  hasRsvped: boolean;
+  homeScore: number;
+  awayScore: number;
+  homeTeamLogo: string;
+  awayTeamLogo: string;
+}>();
+
+const {
+  homeTeam = "The Homeys",
+  awayTeam = "A Way Good Team",
+  date = "Wed, Jan 25, 2024",
+  time = "9:00 - 10:15 PM",
+  hasRsvped = false,
+  homeScore = 0,
+  awayScore = 0,
+  homeTeamLogo = "assets/homeys.png",
+  awayTeamLogo = "assets/awaygoodteam.png"
+} = props;
 </script>
 
 <style scoped>
