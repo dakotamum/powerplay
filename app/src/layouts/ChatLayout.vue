@@ -38,14 +38,14 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <div class="column">
-        <q-btn
+        <!-- <q-btn
           v-for="item in navItems"
           :key="item.label"
           v-bind="item"
           class="q-mt-md q-pt-md q-pb-md"
           style="display: flex; align-items: start; width: 90%"
           color="black"
-        />
+        /> -->
       </div>
     </q-drawer>
 
@@ -65,14 +65,14 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter /*, useRoute*/ } from 'vue-router';
 
 defineOptions({
   name: 'MainLayout',
 });
 
 const router = useRouter();
-const route = useRoute();
+// const route = useRoute();
 
 const leftDrawerOpen = ref(false);
 

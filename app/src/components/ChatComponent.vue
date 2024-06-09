@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref /*, onMounted*/ } from 'vue';
 
 interface Message {
   user: string;
