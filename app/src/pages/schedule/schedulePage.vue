@@ -3,79 +3,50 @@
     <GameInfo
       v-for="(game, index) in games"
       :key="index"
-      :homeTeam="game.homeTeam"
-      :awayTeam="game.awayTeam"
-      :date="game.date"
-      :time="game.time"
-      :hasRsvped="game.hasRsvped"
-      :homeScore="game.homeScore"
-      :awayScore="game.awayScore"
-      :homeLogo="game.homeLogo"
-      :awayLogo="game.awayLogo"
+      :homeTeam="game.home_team_record.name"
+      :awayTeam="game.away_team_record.name"
+      :date="formatDate(game.start)"
+      :time="formatTime(game.start)"
+      :hasRsvped="false"
+      :homeScore="game.home_team_score"
+      :awayScore="game.away_team_score"
+      :homeLogo="getLogo(/*game.home_team_record.logo_id*/)"
+      :awayLogo="getLogo(/*game.away_team_record.logo_id*/)"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useScheduleStore } from 'src/stores/scheduleStore';
 import GameInfo from 'components/GameInfo.vue';
+import { TimeString } from 'src/models/types/timeString';
+import { Game } from 'src/models/Game';
 
-interface Game {
-  homeTeam: string;
-  awayTeam: string;
-  date: string;
-  time: string;
-  hasRsvped: boolean;
-  homeScore: number;
-  awayScore: number;
-  homeLogo: string;
-  awayLogo: string;
-}
+const store = useScheduleStore();
+const games = ref<Game[]>([]);
 
-const games = ref<Game[]>([
-  {
-    homeTeam: 'The Homeys',
-    awayTeam: 'A Way Good Team',
-    date: 'Wed, Jan 25, 2024',
-    time: '9:00 - 10:15 PM',
-    hasRsvped: false,
-    homeScore: 0,
-    awayScore: 0,
-    homeLogo: 'assets/homeys.png',
-    awayLogo: 'assets/awaygoodteam.png',
-  },
-  {
-    homeTeam: 'Team Alpha',
-    awayTeam: 'Team Beta',
-    date: 'Thu, Jan 26, 2024',
-    time: '8:00 - 9:15 PM',
-    hasRsvped: true,
-    homeScore: 5,
-    awayScore: 4,
-    homeLogo: 'assets/homeys.png',
-    awayLogo: 'assets/awaygoodteam.png',
-  },
-  {
-    homeTeam: 'Squad Goals',
-    awayTeam: 'Dream Team',
-    date: 'Fri, Jan 27, 2024',
-    time: '7:00 - 8:15 PM',
-    hasRsvped: true,
-    homeScore: 5,
-    awayScore: 6,
-    homeLogo: 'assets/homeys.png',
-    awayLogo: 'assets/awaygoodteam.png',
-  },
-  {
-    homeTeam: 'Champions',
-    awayTeam: 'Contenders',
-    date: 'Sat, Jan 28, 2024',
-    time: '6:00 - 7:15 PM',
-    hasRsvped: false,
-    homeScore: 7,
-    awayScore: 8,
-    homeLogo: 'assets/homeys.png',
-    awayLogo: 'assets/awaygoodteam.png',
-  },
-]);
+// Load the example data on component mount
+onMounted(() => {
+  store.loadExampleData();
+  games.value = store.games;
+});
+
+// Helper functions to format date and time
+const formatDate = (timeString: TimeString) => {
+  const date = new Date(timeString);
+  return date.toLocaleDateString();
+};
+
+const formatTime = (timeString: TimeString) => {
+  const date = new Date(timeString);
+  return date.toLocaleTimeString();
+};
+
+// Function to get the logo path
+const getLogo = (/*logoId: string*/) => {
+  // Assuming you have a function or a mapping to get logo path by logoId
+  // For example:
+  return 'src/assets/awaygoodteam.png';
+};
 </script>

@@ -226,7 +226,7 @@ export const useScheduleStore = defineStore('schedule', {
             dob: TimeUtil.fromString('1983-07-07') as TimeString,
           } as unknown as User,
           secondary_referee_id: 7 as unknown as UserId, // id is a number
-        },
+        } as unknown as Game,
         // Add more example games as needed
       ];
     },
