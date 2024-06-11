@@ -54,7 +54,14 @@
           <q-item-label>{{ time }}</q-item-label>
         </q-item-section>
         <q-item-section v-if="showRsvpButton" side class="rsvp-section">
-          <q-btn v-if="!hasRsvped" size="sm" color="primary" disabled>RSVP</q-btn>
+          <q-btn
+            v-if="!hasRsvped"
+            size="sm"
+            color="primary"
+            class="active-button no-cursor-change no-pointer-events"
+          >
+            RSVP
+          </q-btn>
           <q-icon
             v-else
             name="check_circle"
@@ -136,6 +143,20 @@ export default {
 }
 .checkmark {
   font-size: 2.5em;
+}
+
+.active-button {
+  background-color: #1976d2; /* Quasar primary color */
+  color: white;
+  opacity: 1; /* Ensures the button looks active */
+}
+
+.no-cursor-change {
+  cursor: default;
+}
+
+.no-pointer-events {
+  pointer-events: none;
 }
 
 @media (min-width: 768px) {
