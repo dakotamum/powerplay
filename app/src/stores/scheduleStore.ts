@@ -35,7 +35,7 @@ export const useScheduleStore = defineStore('schedule', {
           home_team_record: {
             id: 1, // id is a number
             team_guid: 'teamGuid1' as unknown as TeamGuid,
-            name: 'The Homeys',
+            name: 'The Homeboys',
             logo_id: 'logo1' as unknown as LogoId,
             color: 'blue',
             league_record_id: 'leagueRecord1' as unknown as LeagueRecordId, // Correctly cast league_record_id

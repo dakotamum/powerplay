@@ -12,6 +12,7 @@
       :awayScore="game.away_team_score"
       :homeLogo="getLogo(/*game.home_team_record.logo_id*/)"
       :awayLogo="getLogo(/*game.away_team_record.logo_id*/)"
+      :gameId="game.id"
     />
   </div>
 </template>
@@ -46,7 +47,7 @@ const formatTime = (timeString: TimeString) => {
 // Function to get the logo path
 const getLogo = (/*logoId: string*/) => {
   // Assuming you have a function or a mapping to get logo path by logoId
-  // For example:
-  return 'src/assets/awaygoodteam.png';
+  // return `/assets/logos/${logoId}.png`;
+  return 'assets/test/awaygoodteam.png';
 };
 </script>

@@ -161,10 +161,10 @@ const props = defineProps<{
 }>();
 
 const {
-  homeTeam = 'The Homeys',
-  awayTeam = 'A Way Good Team',
-  date = 'Wed, Jan 25, 2024',
-  time = '9:00 - 10:15 PM',
+  // homeTeam = 'The Homeys',
+  // awayTeam = 'A Way Good Team',
+  // date = 'Wed, Jan 25, 2024',
+  // time = '9:00 - 10:15 PM',
   hasRsvped = false,
   homeScore = 0,
   awayScore = 0,

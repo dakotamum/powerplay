@@ -1,5 +1,5 @@
 <template>
-  <q-card class="match-info">
+  <q-card class="match-info" @click="goToGameDetails">
     <q-card-section class="q-pa-xs">
       <q-item class="team-wrapper">
         <q-item-section avatar>
@@ -54,7 +54,7 @@
           <q-item-label>{{ time }}</q-item-label>
         </q-item-section>
         <q-item-section v-if="showRsvpButton" side class="rsvp-section">
-          <q-btn v-if="!hasRsvped" size="sm" color="primary" @click="goToGameDetails">RSVP</q-btn>
+          <q-btn v-if="!hasRsvped" size="sm" color="primary" disabled>RSVP</q-btn>
           <q-icon
             v-else
             name="check_circle"
@@ -111,10 +111,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    gameId: {
+      type: Number,
+      required: true
+    }
   },
   methods: {
     goToGameDetails() {
-      this.$router.push({ path: '/game-details' });
+      this.$router.push({ name: 'GameDetailsPage', params: { /*gameId: this.gameId*/ } });
     },
   },
 };
