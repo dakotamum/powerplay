@@ -1,13 +1,7 @@
 <template>
   <GameInfo
+    :game="games[0]"
     :showRsvpButton="false"
-    :homeTeam="homeTeam"
-    :awayTeam="awayTeam"
-    :date="date"
-    :time="time"
-    :hasRsvped="hasRsvped"
-    :homeScore="homeScore"
-    :awayScore="awayScore"
   />
   <q-card class="q-mb-md">
     <q-card-section>
@@ -145,30 +139,19 @@
 </template>
 
 <script setup lang="ts">
+import { useScheduleStore } from 'src/stores/scheduleStore';
 import { ref } from 'vue';
 import GameInfo from 'components/GameInfo.vue';
+import { onMounted } from 'vue';
+import { Game } from 'src/models/Game';
+let store = useScheduleStore();
+const games = ref<Game[]>([]);
 
-const props = defineProps<{
-  homeTeam: string;
-  awayTeam: string;
-  date: string;
-  time: string;
-  hasRsvped: boolean;
-  homeScore: number;
-  awayScore: number;
-  homeTeamLogo: string;
-  awayTeamLogo: string;
-}>();
-
-const {
-  // homeTeam = 'The Homeys',
-  // awayTeam = 'A Way Good Team',
-  // date = 'Wed, Jan 25, 2024',
-  // time = '9:00 - 10:15 PM',
-  hasRsvped = false,
-  homeScore = 0,
-  awayScore = 0,
-} = props;
+// Load the example data on component mount
+onMounted(() => {
+  store.loadExampleData();
+  games.value = store.games;
+});
 
 const selectedItems = ref('four');
 const options = ref([

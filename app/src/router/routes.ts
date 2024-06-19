@@ -15,14 +15,14 @@ const routes: RouteRecordRaw[] = [
       { path: 'chat', name: 'ChatPage', component: () => import('pages/chat/chatPage.vue'), meta: { title: 'Chat' } },
       { path: 'profile', name: 'ProfilePage', component: () => import('pages/profile/profilePage.vue'), meta: { title: 'Profile' } },
       { path: 'schedule', name: 'SchedulePage', component: () => import('pages/schedule/schedulePage.vue'), meta: { title: 'Schedule' } },
-      { path: 'game-details', name: 'GameDetailsPage', component: () => import('pages/schedule/gameDetailsPage.vue'), meta: { title: 'Game Details' } },
+      { path: 'game-details/:gameId/:teamId', name: 'GameDetailsPage', component: () => import('pages/schedule/gameDetailsPage.vue'), meta: { title: 'Game Details' } },
     ],
   },
   {
-  path: '/chat/chatId',
-  component: () => import('layouts/ChatLayout.vue'),
+    path: '/chat/chatId',
+    component: () => import('layouts/ChatLayout.vue'),
     children: [
-      { path: '', name: 'Chat', component: () => import('pages/chat/ChatUi.vue')},
+      { path: '', name: 'Chat', component: () => import('pages/chat/ChatUi.vue') },
     ]
   },
 

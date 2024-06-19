@@ -15,7 +15,7 @@ export interface Game extends DbModel {
   venue: Venue
   venue_id: VenueId
   status: GameStatus
-  
+
   // TODO: This might change to home: { ... } and away: { ... }
   home_team_record: TeamRecord
   home_team_record_id: TeamRecordId
@@ -24,7 +24,7 @@ export interface Game extends DbModel {
   home_team_locker_room: string
   home_team_shots_on_goal: number
   home_team_score: number
-  
+
   away_team_record: TeamRecord
   away_team_record_id: TeamRecordId
   away_team_roster: Roster
@@ -32,7 +32,7 @@ export interface Game extends DbModel {
   away_team_locker_room: string
   away_team_shots_on_goal: number
   away_team_score: number
-  
+
   score_keeper: User
   score_keeper_id: UserId
   primary_referee: User
