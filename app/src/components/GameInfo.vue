@@ -39,8 +39,8 @@
     <q-card-section class="q-pa-xs">
       <q-item class="datetime-wrapper">
         <q-item-section class="datetime-details">
-          <q-item-label>{{ game.start }}</q-item-label>
-          <q-item-label>{{ game.start }}</q-item-label>
+          <q-item-label>{{ formatTimeInterval(game.start) }}</q-item-label>
+          <q-item-label>{{ formatDate(game.start) }}</q-item-label>
         </q-item-section>
         <q-item-section v-if="showRsvpButton" side class="rsvp-section">
           <q-btn size="sm" color="primary" class="active-button no-cursor-change no-pointer-events">
@@ -81,11 +81,45 @@ const getLogoSrc = (logoId: LogoId): string => {
   return logo ? logo.src : '';
 };
 
+// const formatTime = (timeString: string): string => {
+//   const date = new Date(timeString);
+//   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+// };
+
+const formatTime = (timeString: string): string => {
+  const date = new Date(timeString);
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+  return `${hours}:${minutesStr} ${ampm}`;
+};
+
+const formatTimeInterval = (startTime: string): string => {
+  const startDate = new Date(startTime);
+  const endDate = new Date(startDate.getTime() + 75 * 60 * 1000); // Add 1 hour and 15 minutes
+  return `${formatTime(startDate.toISOString())} - ${formatTime(endDate.toISOString())}`;
+};
+
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
+  return date.toLocaleDateString('en-US', options);
+};
+
 function goToGameDetails() {
   if (props.showRsvpButton) {
     router.push({ name: 'GameDetailsPage', params: { gameId: props.game.id, teamId: props.game.away_team_record.id } });
   }
 }
+
 </script>
 
 <style scoped>
