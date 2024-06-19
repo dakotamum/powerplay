@@ -3,21 +3,16 @@
     <q-card-section class="q-pa-xs">
       <q-item class="team-wrapper">
         <q-item-section avatar>
-          <!-- <q-img :src="homeTeamLogo" alt="Logo" class="team-logo" /> -->
+          <q-img :src="getLogoSrc(game.home_team_record.logo_id)" alt="Home Team Logo" class="team-logo" />
         </q-item-section>
         <q-item-section class="team-details">
-          <q-item-label
-            :class="{ 'text-bold': game.home_team_score > game.away_team_score }"
-            class="team-name"
-          >
+          <q-item-label :class="{ 'text-bold': game.home_team_score > game.away_team_score }" class="team-name">
             {{ game.home_team_record.name }}
           </q-item-label>
           <q-item-label caption class="home-away-label">Home</q-item-label>
         </q-item-section>
         <q-item-section side class="score-section">
-          <q-item-label
-            :class="{ 'text-bold': game.home_team_score > game.away_team_score }"
-          >
+          <q-item-label :class="{ 'text-bold': game.home_team_score > game.away_team_score }">
             {{ game.home_team_score !== null ? game.home_team_score : '' }}
           </q-item-label>
         </q-item-section>
@@ -26,22 +21,16 @@
     <q-card-section class="q-pa-xs">
       <q-item class="team-wrapper">
         <q-item-section avatar>
-          <!-- <q-img :src="awayTeamLogo" alt="Logo" class="team-logo" /> -->
+          <q-img :src="getLogoSrc(game.away_team_record.logo_id)" alt="Away Team Logo" class="team-logo" />
         </q-item-section>
         <q-item-section class="team-details">
-          <q-item-label
-            :class="{ 'text-bold': game.away_team_score > game.home_team_score }"
-            class="team-name"
-          >
+          <q-item-label :class="{ 'text-bold': game.away_team_score > game.home_team_score }" class="team-name">
             {{ game.away_team_record.name }}
           </q-item-label>
           <q-item-label caption class="home-away-label">Away</q-item-label>
         </q-item-section>
         <q-item-section side class="score-section">
-          <q-item-label
-            :class="{ 'text-bold': game.away_team_score > game.home_team_score }"
-            class="score"
-          >
+          <q-item-label :class="{ 'text-bold': game.away_team_score > game.home_team_score }">
             {{ game.away_team_score !== null ? game.away_team_score : '' }}
           </q-item-label>
         </q-item-section>
@@ -50,25 +39,13 @@
     <q-card-section class="q-pa-xs">
       <q-item class="datetime-wrapper">
         <q-item-section class="datetime-details">
-          <q-item-label>{{ props.game.start }}</q-item-label>
-          <q-item-label>{{ props.game.start }}</q-item-label>
+          <q-item-label>{{ game.start }}</q-item-label>
+          <q-item-label>{{ game.start }}</q-item-label>
         </q-item-section>
         <q-item-section v-if="showRsvpButton" side class="rsvp-section">
-          <q-btn
-            v-if="true"
-            size="sm"
-            color="primary"
-            class="active-button no-cursor-change no-pointer-events"
-          >
+          <q-btn size="sm" color="primary" class="active-button no-cursor-change no-pointer-events">
             RSVP
           </q-btn>
-          <q-icon
-            v-else
-            name="check_circle"
-            color="green"
-            size="md"
-            class="checkmark"
-          />
         </q-item-section>
       </q-item>
     </q-card-section>
@@ -79,7 +56,18 @@
 import { defineProps } from 'vue';
 import { Game } from 'src/models/Game';
 import { useRouter } from 'vue-router';
+import { useScheduleStore } from 'src/stores/scheduleStore';
+import { onMounted, ref } from 'vue';
+import type { LogoId } from 'src/models/ids';
+
 const router = useRouter();
+const store = useScheduleStore();
+const logos = ref<{ id: LogoId, src: string }[]>([]);
+
+onMounted(() => {
+  store.loadExampleData();
+  logos.value = store.logos;
+});
 
 interface Props {
   game: Game;
@@ -87,6 +75,11 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const getLogoSrc = (logoId: LogoId): string => {
+  const logo = store.logos.find(logo => logo.id === logoId);
+  return logo ? logo.src : '';
+};
 
 function goToGameDetails() {
   if (props.showRsvpButton) {

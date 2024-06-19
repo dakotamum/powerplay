@@ -1,6 +1,7 @@
 <template>
   <GameInfo
-    :game="games[0]"
+    v-if="game"
+    :game="game"
     :showRsvpButton="false"
   />
   <q-card class="q-mb-md">
@@ -140,17 +141,23 @@
 
 <script setup lang="ts">
 import { useScheduleStore } from 'src/stores/scheduleStore';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import GameInfo from 'components/GameInfo.vue';
-import { onMounted } from 'vue';
 import { Game } from 'src/models/Game';
-let store = useScheduleStore();
+
+// Import the store and route
+const store = useScheduleStore();
+const route = useRoute();
 const games = ref<Game[]>([]);
+const game = ref<Game | null>(null);
 
 // Load the example data on component mount
 onMounted(() => {
   store.loadExampleData();
   games.value = store.games;
+  const gameId = route.params.gameId as string;
+  game.value = games.value.find(g => g.id === Number(gameId)) || null;
 });
 
 const selectedItems = ref('four');
